@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+
+    <link th:replace="fragments/index::fragments-image "/>
+    <title th:replace="fragments/index::fragments-title"/>
+
+    <link th:replace="fragments/index::fragments-googleapisFira"/>
+
+
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-tagsinput.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+
+
+
+    <!--[if lt IE 9]>
+		<script th:src="@{/assets/js/html5shiv.min.js}"></script>
+		<script th:src="@{/assets/js/respond.min.js}"></script>
+	[endif]-->
+
+</head>
+
+<body>
+
+<div th:replace="fragments/index::navbar"/>
+
+    <div class="main-wrapper">
+
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h4 class="page-title">Registar Departamento</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+
+                        <form id="formulario" name="formulario" th:action="@{/imel/departamento/registar}"  method="post">
+                            
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input class="form-control"  th:value="${departamento.nome}" id="nome" name="nome" roleId="nome" placeholder="Digite o nome" type="text"/>
+                            </div>
+                
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea type="text" cols="30" rows="6"  th:value="${departamento.descricao}" id="descricao" name="descricao" roleId="descricao" class="form-control" placeholder="Digite a descrição"></textarea>
+                            </div>
+                        
+                            <div class="m-t-20 text-center">
+                                <button type="submit" id="submit-button" class="btn btn-primary btn-lg">Salvar</button>
+                            </div>
+
+                           <!-- <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>-->
+                            
+                        </form>
+
+                        <br/>
+
+                        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/jquery/additional-methods.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/jquery/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/script/validation.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap-tagsinput.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+
+
+
+
+
+</body>
+
+</html>

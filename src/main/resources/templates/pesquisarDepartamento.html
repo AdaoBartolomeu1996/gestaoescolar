@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link th:replace="fragments/index::fragments-image "/>
+    <title th:replace="fragments/index::fragments-title"/>
+
+    <link th:replace="fragments/index::fragments-googleapisFira"/>
+    <link th:replace="fragments/index::fragments-googleapisMaterial"/>
+
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/dataTables.bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/style.css}">
+    <!--[if lt IE 9]>
+		<script th:src="@{/assets/js/html5shiv.min.js}"></script>
+		<script th:src="@{/assets/js/respond.min.js}"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div th:replace="fragments/index::navbar"/>
+    <div class="main-wrapper">
+       
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <h4 class="page-title">Pesquisar Departamento</h4>
+                    </div>
+                    <div class="col-xs-4 text-right m-b-30">
+                        <a th:href="@{/imel/departamento/registar}" class="btn btn-primary rounded pull-right" data-toggle="modal"><i class="fa fa-plus"></i> Novo Deparamento</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="dtOrderExample" class="table table-striped custom-table m-b-0 ">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Código</th>
+                                        <th>Descrição</th>
+                                        <th>Opeções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="departamento : ${departamentos}">
+                                        <td th:text="${departamento.nome}">Informática</td>
+                                        <td>
+                                            <strong id="id" th:text="${departamento.id}">22</strong>
+                                        </td>
+                                        <td th:text="${departamento.descricao}">Cada departamento oferece um conjunto de cursos integrantes dos currículos dos departamento de Infromática.</td>
+
+                                        <td class="text-right">
+                                            <div class="dropdown">
+                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                <ul class="dropdown-menu pull-right">
+
+                                                    <!--<li><a th:href="@{/imel/departamento/editarId/{id} (id=${departamento.id})}" title="Edit" data-toggle="modal" ><i class="fa fa-pencil m-r-5"></i> Editar</a></li> -->
+
+                                                    <li><a th:href="@{/imel/departamento/editarId/{id} (id=${departamento.id})}" title="Edit" data-toggle="modal" ><i class="fa fa-pencil m-r-5"></i> Editar</a></li>
+
+                                                    <li><a href="#" title="Delete" data-toggle="modal" th:onclick="|apagar(${departamento.id})|"  data-target="#delete_asset"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a></li>
+
+                                                <!--th:onclick="|apagar(${departamento.id})|"-->
+
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+
+      <div class="modal fade" id="delete_asset" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Eliminar Departamento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form th:action="@{/imel/departamento/eliminar}" th:method="post">
+                    <div class="modal-body">
+                        Tem certeza de que deseja eliminar este departamento?
+                    </div>
+                        <div class="modal-body"> <b>Nota:</b>
+                            <span > Esta operação ira remover os dados permanentemente do sistema.</span>
+                            <br>
+                        </div>
+                        <input type="hidden" name="id" id="identifacador"/>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+
+     <script>
+         $('#dtOrderExample').DataTable({
+             "language": {
+                 "sEmptyTable": "Nenhum registro encontrado",
+                 "sProcessing": "A processar...",
+                 "sLengthMenu": "Mostrar _MENU_ registos",
+                 "sZeroRecords": "Não foram encontrados resultados",
+                 "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
+                 "sInfoEmpty": "Visaulizar de 0 até 0 de 0 registos",
+                 "sInfoFiltered": "(filtrado de _MAX_ registos no total)",
+                 "sInfoPostFix": "",
+                 "sSearch": "Procurar:",
+                 "sUrl": "",
+                 "oPaginate": {
+                     "sFirst": "Primeiro",
+                     "sPrevious": "Anterior",
+                     "sNext": "Seguinte",
+                     "sLast": "Último"
+                 },
+                 "oAria": {
+                     "sSortAscending": ": Ordenar colunas de forma ascendente",
+                     "sSortDescending": ": Ordenar colunas de forma descendente"
+                 }
+             }} );
+        </script>
+</body>
+
+</html>

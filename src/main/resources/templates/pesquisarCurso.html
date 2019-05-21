@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link th:replace="fragments/index::fragments-image "/>
+    <title th:replace="fragments/index::fragments-title"/>
+    <link th:replace="fragments/index::fragments-googleapisFira"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/dataTables.bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+    <!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.min.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+<div th:replace="fragments/index::navbar"/>
+    <div class="main-wrapper">
+       
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <h4 class="page-title">Pesquisar Cruso</h4>
+                    </div>
+                    
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="dtOrderExample" class="table table-striped custom-table m-b-0 ">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Id</th>
+                                        <th>Departamento</th>
+                                        <th>Descrição</th>
+                                      
+                                        <th class="text-right">Opeções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> Gestão de Informática</td>
+                                        <td>
+                                            <strong>32</strong>
+                                        </td>
+                                        <td>Informática</td>
+                                        <td>Gestão de Informática bem como disciplinas introdutórias para vários outros cursos.</td>
+                                       
+                                        <td class="text-right">
+                                            <div class="dropdown">
+                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                <ul class="dropdown-menu pull-right">
+                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_asset"><i class="fa fa-pencil m-r-5"></i> Editar</a></li>
+                                                    <li><a href="#" title="Delete" data-toggle="modal" data-target="#delete_asset"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>Informática Técnica</td>
+                                        <td>
+                                            <strong>2</strong>
+                                        </td>
+                                        <td>Informática</td>
+                                        <td>Informática Técnica bem como disciplinas introdutórias para vários outros cursos.</td>
+                                       
+                                        <td class="text-right">
+                                            <div class="dropdown">
+                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                <ul class="dropdown-menu pull-right">
+                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_asset"><i class="fa fa-pencil m-r-5"></i> Editar</a></li>
+                                                    <li><a href="#" title="Delete" data-toggle="modal" data-target="#delete_asset"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div id="delete_asset" class="modal custom-modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content modal-md">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Elimiar Curso</h4>
+                    </div>
+                    <form>
+                        <div class="modal-body card-box">
+                            <p>Tem certeza de que deseja eliminar este curso?</p>
+                            <div class="m-t-20"> <a href="#" class="btn btn-default" data-dismiss="modal">fechar</a>
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div id="edit_asset" class="modal custom-modal fade" role="dialog">
+            <div class="modal-dialog">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-content modal-md">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Editar Curso</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nome</label>
+                                        <input class="form-control" type="text" value="Gestão de Informática">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Departamento</label>
+                                        <select class="select">
+                                            <option>Informática</option>
+                                            <option>Médicina</option>
+                                            <option>Economia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Descrição</label>
+                                        <textarea cols="30" rows="6" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-primary btn-lg">Salvar Alterações</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+    
+     <script>
+         $('#dtOrderExample').DataTable({
+             "language": {
+                 "sEmptyTable": "Nenhum registro encontrado",
+                 "sProcessing": "A processar...",
+                 "sLengthMenu": "Mostrar _MENU_ registos",
+                 "sZeroRecords": "Não foram encontrados resultados",
+                 "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
+                 "sInfoEmpty": "Mostrando de 0 até 0 de 0 registos",
+                 "sInfoFiltered": "(filtrado de _MAX_ registos no total)",
+                 "sInfoPostFix": "",
+                 "sSearch": "Procurar:",
+                 "sUrl": "",
+                 "oPaginate": {
+                     "sFirst": "Primeiro",
+                     "sPrevious": "Anterior",
+                     "sNext": "Seguinte",
+                     "sLast": "Último"
+                 },
+                 "oAria": {
+                     "sSortAscending": ": Ordenar colunas de forma ascendente",
+                     "sSortDescending": ": Ordenar colunas de forma descendente"
+                 }
+             }} );
+        </script>
+</body>
+
+</html>

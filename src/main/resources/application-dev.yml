@@ -1,0 +1,20 @@
+
+spring:
+  datasource:
+    url: jdbc:h2:~/gestaoescolar
+    username: sa
+    password:
+    driver-class-name : org.h2.Driver
+
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: update
+
+  logging:
+    level:
+      root: WARN
+
+
+
+

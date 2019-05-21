@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url : jdbc:mysql://localhost:3306/academica?serverTimezone=UTC
+    username : root
+    password :
+    #initialization-mode: always
+    #platform: mysql
+
+  jpa:
+    show_sql : true
+    hibernate:
+      ddl-auto: update
+      dialect : org.hibernate.dialect.HSQLDialect
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+
+    logging:
+      level:
+        org:
+          springframework : INFO
