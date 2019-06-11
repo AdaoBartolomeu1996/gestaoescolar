@@ -1,12 +1,12 @@
 package com.gestaoescolar.domain;
 
-import com.gestaoescolar.domain.enumEstado.Classe;
-import com.gestaoescolar.domain.enumEstado.EstadoAvaliacao;
+import com.gestaoescolar.domain.enumEstado.EstadoClasse;
 import com.gestaoescolar.domain.enumEstado.EstadoTurma;
 import com.gestaoescolar.domain.enumEstado.EstadoTurno;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -31,6 +31,7 @@ public class Turma{
     @Enumerated(EnumType.STRING)
     private EstadoTurno turno;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataAbertura;
 
     private int numeroVaga;
@@ -38,13 +39,16 @@ public class Turma{
     private int mediaValor;
 
     @Enumerated(EnumType.STRING)
-    private Classe classe;
+    private EstadoClasse classe;
 
-    private LocalDate anoLetivo;
-
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataTermino;// Data Em que a turma vai fechar A mesma coisa que o Evento quando passa a data abertura feicha automaticamente;
 
-    @OneToMany(mappedBy = "turma",cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "anoletivo_id", referencedColumnName = "id")
+    private AnoLetivo anoletivo;
+
+    @OneToMany(mappedBy = "turma",orphanRemoval=true )
     private List<Estudante> estudantes = new ArrayList<>();
 
     @ManyToOne

@@ -1,19 +1,22 @@
 package com.gestaoescolar.service.map;
 
 import com.gestaoescolar.domain.Professor;
-import com.gestaoescolar.domain.ProfessorTelefone;
 
 import java.util.List;
 
 public interface ProfessorService {
 
-    void registrarProfessor(Professor professor, ProfessorTelefone telefone);
+    void registrarProfessor(Professor professor,String url);
+
+    void atualizarProfessor(Professor professor,String url);
+
+    Professor procurarUsuarioId(Long id);
 
     Professor findById(Long id);
 
-    Professor procurarEmail(String emai);
+    List<Professor> listarProfessoresEstado();
 
-    Professor procuararNumeroProfessor(String numeroProfessor);
+    Professor procurarEmail(String emai);
 
     Professor procurarBilhete(String bilhete);
 

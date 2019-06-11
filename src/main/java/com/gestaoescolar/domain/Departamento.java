@@ -13,7 +13,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Departamento {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +21,6 @@ public class Departamento {
 
     private String descricao;
 
-    @OneToOne(mappedBy = "departamento",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "departamento",orphanRemoval=true)
     private Curso curso;
 }

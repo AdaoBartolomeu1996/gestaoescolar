@@ -7,7 +7,8 @@
 
     <link th:replace="fragments/index::fragments-image "/>
     <title th:replace="fragments/index::fragments-title"/>
-    <link th:replace="fragments/index::fragments-googleapisFira"/>
+
+    <!--<link th:replace="fragments/index::fragments-googleapisFira"/>-->
 
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
@@ -32,7 +33,7 @@
                         <h4 class="page-title">Pesquisar Disciplina</h4>
                     </div>
                     <div class="col-xs-4 text-right m-b-30">
-                        <a th:href="@{/imel/disciplina/registar}" class="btn btn-primary rounded pull-right" data-toggle="modal"><i class="fa fa-plus"></i> Novo Deparamento</a>
+                        <a th:href="@{/imel/disciplina/registar}" class="btn btn-primary rounded pull-right" data-toggle="modal"><i class="fa fa-plus"></i> Nova Disciplina </a>
                     </div>
                     
                 </div>
@@ -64,7 +65,7 @@
 
                                                 <!--<li><a th:href="@{/imel/departamento/editarId/{id} (id=${departamento.id})}" title="Edit" data-toggle="modal" ><i class="fa fa-pencil m-r-5"></i> Editar</a></li> -->
 
-                                                <li><a th:href="@{/imel/disciplina/editarId/{id} (id=${disciplina.id})}" title="Edit" data-toggle="modal" ><i class="fa fa-pencil m-r-5"></i> Editar</a></li>
+                                                <li><a th:href="@{/imel/disciplina/editar/{id} (id=${disciplina.id})}" title="Edit" data-toggle="modal" ><i class="fa fa-pencil m-r-5"></i> Editar</a></li>
 
                                                 <li><a href="#" title="Delete" data-toggle="modal"  th:onclick="|apagar(${disciplina.id})|" data-target="#delete_asset"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a></li>
                                             </ul>
@@ -86,7 +87,6 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Eliminar Disciplina</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form th:action="@{/imel/disciplina/eliminar}" th:method="post">

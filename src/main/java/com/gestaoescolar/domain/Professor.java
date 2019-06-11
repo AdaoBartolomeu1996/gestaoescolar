@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -24,11 +23,13 @@ public class Professor {
 
     private String numeroProfessor;
 
-    private String foto;
-
     private String nome;
 
+    private boolean estado = false;
+
     private String email;
+
+    private String telefone;
 
     private String bilhete;
 
@@ -42,23 +43,19 @@ public class Professor {
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
-    @OneToOne(mappedBy = "professor", cascade = CascadeType.ALL)
-    private ProfessorTelefone telefone;
+    @OneToOne(mappedBy = "professor", orphanRemoval=true)
+    private CoordenadorCurso coordenadorCurso;
 
-    @OneToOne(mappedBy = "professor", cascade = CascadeType.ALL)
-    private CordenadorCurso cordenadorCurso;
-
-    @OneToOne(mappedBy = "professor", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "professor", orphanRemoval=true)
     private Diretor diretor;
 
-     @ManyToMany(mappedBy = "professores",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "professores")//,cascade = CascadeType.ALL)
     private List<Turma> turmas = new ArrayList<>();
 
     @ManyToMany(mappedBy = "professores",cascade = CascadeType.ALL)
     private List<Disciplina> disciplinas = new ArrayList<>();
 
-
-    @OneToMany(mappedBy = "professor",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "professor")//,cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacaos = new ArrayList<>();
 
     public void addAvaliacaoProfessor(Avaliacao avaliacao){

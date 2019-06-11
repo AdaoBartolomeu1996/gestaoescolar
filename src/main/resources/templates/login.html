@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<html xmlns:th="http://www.thymeleaf.org"  lang="pt">
 
 <head>
     <meta charset="utf-8">
@@ -8,16 +8,18 @@
     <link th:replace="fragments/index::fragments-image "/>
     <title th:replace="fragments/index::fragments-title"/>
 
-    <link th:replace="fragments/index::fragments-googleapisFira"/>
+    <!--
+    <link th:replace="fragments/index::fragments-googleapisFira"/>-->
 
 
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
-    <!--[if lt IE 9]>
+
+    <!--
 		<script th:src="@{/assets/js/html5shiv.min.js}"></script>
 		<script th:src="@{/assets/js/respond.min.js}"></script>
-	<![endif]-->
+	-->
 </head>
 
 <body>
@@ -25,19 +27,19 @@
         <div class="account-page">
             <div class="container">
                 <h3 class="account-title">
-                    <table align="center" width=830 height=120 border=1>
+                    <table align="center" width=860 height=120 border=1>
                         <tbody>
                             <td>
-                                <h2 align="center"  class= "paragrafo"> <strong>Inscrições 2019</strong>  </h2>
-                                <p4 class="paragrafo2"> Para se Inscrever, aceda com os seguintes dados: <br/></p4>
-                                <p4 class="paragrafo2"> Nome de Usúario:  <strong>candidato</strong> <br/></p4>
-                                <p4 class="paragrafo2">Senha: <strong>candidato</strong> <br/></p4>
+                                <h2 align="center"> <strong>Inscrições 2019</strong>  </h2>
+                                <p4 > Para se Inscrever, aceda com os seguintes dados: <br/></p4>
+                                <p4 > Nome de Usúario:  <strong>candidato</strong> <br/></p4>
+                                <p4 >Palavra-passe: <strong>candidato</strong> <br/></p4>
                             </td>
                             <td>
-                                <h2 align="center"  class= "paragrafo"> <strong>Matriculas 2019</strong>  </h2>
-                                <p4 class="paragrafo2"> Para se matricular, aceda com os seguintes dados: <br/></p4>
-                                <p4 class="paragrafo2">Nome de Usúario:  <strong>matricula</strong>  <br/></p4>
-                                <p4 class="paragrafo2">Senha: <strong>matricula</strong> <br/></p4>
+                                <h2 align="center"> <strong>Matriculas 2019</strong>  </h2>
+                                <p4 > Para se matricular, aceda com os seguintes dados: <br/></p4>
+                                <p4 >Nome de Usúario:  <strong>matricula</strong>  <br/></p4>
+                                <p4>Palavra-passe: <strong>matricula</strong> <br/></p4>
                             </td>
                         </tbody>
                     </table>
@@ -47,15 +49,23 @@
                         <div class="account-logo">
                             <a><img th:src="@{/assets/img/logo.png}" alt="imel"></a>
                         </div>
-                        <form action="index.html">
+
+                        <div class="alert alert-danger" th:if="${param.error}">Nome de usuário ou palavra-passe inválidos.</div>
+                        <div class="alert alert-success" th:if="${param.logout}">Sessão terminada.</div>
+
+                        <form th:action="@{/login}" method="post">
+
                             <div class="form-group form-focus">
                                 <label class="control-label">Nome de Usúario</label> 
                                 <input id="username" name="username" roleId="username" required="required" class="form-control floating" type="text">
                             </div>
+
                             <div class="form-group form-focus">
-                                <label class="control-label">Senha</label>
-                                <input id="password" name="password" roleId="password" required="required"  class="form-control floating" type="password">
+                                <label class="control-label">Palavra-passe</label>
+                                <input id="password" name="password" roleId="password" required="required" data-toggle="password"  class="form-control floating" type="password">
+
                             </div>
+
                             <div class="form-group text-center">
                                 <button class="btn btn-primary btn-block account-btn" type="submit">Entar</button>
                             </div>
@@ -65,6 +75,7 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap-show-password.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/app.js}"></script>

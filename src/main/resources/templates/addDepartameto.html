@@ -9,9 +9,7 @@
     <link th:replace="fragments/index::fragments-image "/>
     <title th:replace="fragments/index::fragments-title"/>
 
-    <link th:replace="fragments/index::fragments-googleapisFira"/>
-
-
+    <!--<link th:replace="fragments/index::fragments-googleapisFira"/>-->
 
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
@@ -19,7 +17,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-tagsinput.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
 
-
+    <style>
+        .error{color:red}
+    </style>
 
     <!--[if lt IE 9]>
 		<script th:src="@{/assets/js/html5shiv.min.js}"></script>
@@ -48,12 +48,12 @@
                             
                             <div class="form-group">
                                 <label>Nome</label>
-                                <input class="form-control"  th:value="${departamento.nome}" id="nome" name="nome" roleId="nome" placeholder="Digite o nome" type="text"/>
+                                <input class="form-control"  th:value="${departamento.nome}" id="nome" name="nome"  placeholder="Digite o nome" type="text"/>
                             </div>
-                
+
                             <div class="form-group">
-                                <label>Descrição</label>
-                                <textarea type="text" cols="30" rows="6"  th:value="${departamento.descricao}" id="descricao" name="descricao" roleId="descricao" class="form-control" placeholder="Digite a descrição"></textarea>
+                                <label for="descricao" >Descrição</label>
+                                <textarea class="form-control " cols="30" rows="6"  th:value="${departamento.descricao}" id="descricao" name="descricao"  placeholder="Digite a descrição" type="text"></textarea>
                             </div>
                         
                             <div class="m-t-20 text-center">
@@ -76,19 +76,17 @@
     </div>
 
     <script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/js/jquery-3.4.1.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/jquery/additional-methods.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/assets/jquery/additional-methods.js}"></script>-->
     <script type="text/javascript" th:src="@{/assets/jquery/jquery.validate.js}"></script>
     <script type="text/javascript" th:src="@{/assets/script/validation.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/assets/js/jquery-3.4.1.js}"></script>-->
     <!--<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>-->
     <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/bootstrap-tagsinput.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
-
-
-
 
 
 </body>

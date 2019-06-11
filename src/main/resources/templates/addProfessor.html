@@ -8,17 +8,19 @@
     <link th:replace="fragments/index::fragments-image "/>
     <title th:replace="fragments/index::fragments-title"/>
 
-    <link th:replace="fragments/index::fragments-googleapisFira"/>
+    <!--<link th:replace="fragments/index::fragments-googleapisFira"/>-->
 
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/select2.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-tagsinput.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
-    <!--[if lt IE 9]>
-		<script th:src="@{/assets/js/html5shiv.min.js}"></script>
-		<script th:src="@{/assets/js/respond.min.js}"></script>
-	<![endif]-->
+
+
+    <style>
+        .error{color:red}
+    </style>
+
 </head>
 
 <body>
@@ -35,41 +37,50 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <form th:action="@{/imel/professor/registar}"  method="post">
+                        <form id="formulario" name="formulario" th:action="@{/imel/professor/registar}" enctype="multipart/form-data"  method="post">
                             <div class="form-group">
                                 <label>Nome Completo</label>
-                                <input class="form-control" id="nome" name="nome" roleId="nome" th:value="${professor.nome}" placeholder="Digite o nome" type="text" required="required">
+                                <input class="form-control" id="nome" name="nome" roleId="nome" th:value="${professor.nome}" placeholder="Digite o nome" type="text" >
                             </div>
                             
                             <div class="form-group">
                                 <label>Email</label>
-                                <input class="form-control" id="email" name="email" type="email"   th:value="${professor.email}" roleId="email" placeholder="exemplo@exemplo.com" required="required" >
+                                <input class="form-control" id="email" name="email" type="email"  th:value="${professor.email}" roleId="email" placeholder="exemplo@exemplo.com" >
                             </div>
-                            
-                                                        
+
                             <div class="form-group">
                                 <label>Telefone</label>
-                                <input class="form-control" id="telefone" name="telefone" roleId="telefone" th:value="${telefone.telefone}" type = "tel"  pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="9xxxxxxxx" required="required">
+                                <input class="form-control" id="telefone" name="telefone" roleId="telefone" th:value="${professor.telefone}" type = "tel"  pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="9xxxxxxxx">
                             </div>
                             
                             <div class="row">
-                                <div class="col-md-4">
+
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Sexo</label>
-                                        <select class="select" required="required" th:field="*{professor.estadoSexo}">
-                                            <option th:each="estado:${estadoSexo}"  th:text="${estado.sexo}" th:value="${estado}"  >Masculino</option>
+                                        <select class="select" id="estadoSexo" name="estadoSexo"  th:field="*{professor.estadoSexo}">
+                                            <option value="">Selcecione...</option>
+                                            <option th:each="estado:${estadoSexo}"  th:text="${estado.sexo}" th:value="${estado}">Masculino</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
+
+                                <div class="col-md-6">
                                         <div class="form-group ">
                                          <label>Data de Nascimento</label>
-							             <div class="cal-icon">
-                                             <input class="form-control datetimepicker" th:value="${professor.data}"  th:placeholder="${dateFormat}" required="required" placeholder="Escolha a data" name="data" id="data" type="text">
+							             <div class="cal-icon" >
+                                             <input name="data" id="data" class="form-control datetimepicker" th:value="${professor.data}"  th:placeholder="${dateFormat}"    type="text">
 							             </div>
                                     </div>
                                 </div>
+
                             </div>
+
+                            <div class="form-group">
+                                  <label>Foto tipo Passe</label><p style="display: inline">*(As dimenções de imagem recomendada é de 150 x 150 pixels.)</p>
+                                  <input class="form-control" id="fotoP"   name="fotoP" roleId="fotoP"  placeholder="Escolaha a ficheiro" type="file" >
+                            </div>
+
                             <div class="form-group">
                                 <label>Bilhete</label>
                                 <input class="form-control" id="bilhete" name="bilhete" roleId="bilhete"  th:value="${professor.bilhete}"  type="text" placeholder="009XXXXXXXXXXX" required="required">
@@ -78,6 +89,7 @@
                             <div class="m-t-20 text-center">
                                 <button class="btn btn-primary btn-lg">Salvar</button>
                             </div>
+
                         </form>
 
                         <br/>
@@ -90,8 +102,11 @@
            
         </div>
     </div>
-    <div class="sidebar-overlay" data-reff=""></div>
-    <script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/assets/jquery/additional-methods.js}"></script>-->
+    <script type="text/javascript" th:src="@{/assets/jquery/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/script/validation.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
@@ -99,9 +114,7 @@
     <script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
-    
-    
-    
+
 </body>
 
 </html>

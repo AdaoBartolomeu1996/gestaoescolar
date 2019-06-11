@@ -31,11 +31,14 @@ public class DepartamentoController {
     }
 
     @PostMapping("/registar")
-    public String departamentoAdicionarPost(@ModelAttribute("departamento")Departamento departamento,BindingResult result, RedirectAttributes redirectAttributes, Model model){
+    public String departamentoAdicionarPost(@ModelAttribute("departamento")Departamento departamento, RedirectAttributes redirectAttributes, Model model){
 
-        if (result.hasErrors()){
-            redirectAttributes.addFlashAttribute("message", "Erro");
+        Departamento editardepartament=departamentoService.encontarPorNome(departamento.getNome());
+
+        if (editardepartament!=null){
+            redirectAttributes.addFlashAttribute("message", "Erro o departamento "+departamento.getNome()+" já existe.");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            return"redirect:/imel/departamento/registar";
         }
         redirectAttributes.addFlashAttribute("message", "Dados Salvo");
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
@@ -50,7 +53,7 @@ public class DepartamentoController {
         return "pesquisarDepartamento";
     }
 
-    @GetMapping("/editarId/{id}")
+    @GetMapping("/editar/{id}")
     public String departamentoPesquisarId(@PathVariable("id") Long id ,Model model){
 
         model.addAttribute("departamento",departamentoService.findById(id));
@@ -60,15 +63,19 @@ public class DepartamentoController {
     @PostMapping("/editar")
     public String departamentoEditar(@ModelAttribute("departamento")Departamento departamento, RedirectAttributes redirectAttributes, BindingResult result, Model model){
 
-        if (result.hasErrors()){
-            redirectAttributes.addFlashAttribute("message", "Erro");
-            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+        Departamento departamen = departamentoService.findById(departamento.getId());
+
+        Departamento editardepartament=departamentoService.encontarPorNome(departamento.getNome());
+
+        if (editardepartament==null || departamen.getNome().equals(editardepartament.getNome())){
+            redirectAttributes.addFlashAttribute("message", "Dados Salvo");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+            departamentoService.registrarDepartamento(departamento);
             return "redirect:/imel/departamento/editar/"+departamento.getId();
         }
-        redirectAttributes.addFlashAttribute("message", "Dados Salvo");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-        departamentoService.registrarDepartamento(departamento);
-        return "redirect:/imel/departamento/pesquisar";
+        redirectAttributes.addFlashAttribute("message", "Erro o departamento "+departamento.getNome()+" já existe.");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+        return "redirect:/imel/departamento/editar/"+departamento.getId();
     }
 
     @PostMapping("/eliminar")

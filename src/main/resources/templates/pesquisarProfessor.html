@@ -8,7 +8,7 @@
     <link th:replace="fragments/index::fragments-image "/>
     <title th:replace="fragments/index::fragments-title"/>
 
-    <link th:replace="fragments/index::fragments-googleapisFira"/>
+    <!--<link th:replace="fragments/index::fragments-googleapisFira"/>-->
 
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
@@ -26,7 +26,7 @@
 
 <div th:replace="fragments/index::navbar"/>
     <div class="main-wrapper">
-       
+
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="row">
@@ -34,18 +34,17 @@
                         <h4 class="page-title">Pesquisar Professor</h4>
                     </div>
                     <div class="col-xs-4 text-right m-b-30">
-                        <a th:href="@{/imel/professor/registar}" class="btn btn-primary rounded pull-right" data-toggle="modal"><i class="fa fa-plus"></i> Novo Professor</a>
+                        <a th:href="@{/imel/professor/registar}" class="btn btn-primary rounded pull-right" data-toggle="modal"><i class="fa fa-plus"></i> Novo Professor </a>
                     </div>
-                    
+
                 </div>
-            
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <table id="dtOrderExample" class="table table-striped custom-table m-b-0 ">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
                                         <th>Número Professor</th>
                                         <th>Nome Completo</th>
                                         <th>Email</th>
@@ -58,20 +57,19 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="professor : ${professores}">
-                                        <td th:text="${professor.id}">1</td>
                                         <td th:text="${professor.numeroProfessor}">imelp1234</td>
                                         <td th:text="${professor.nome}">Adão Bartolomeu</td>
                                         <td th:text="${professor.email}">adaogaspar@homail.com</td>
-                                        <td th:text="${professor.telefone.telefone}">923453689</td>
-                                        <td th:text="${professor.estadoSexo}">Masculino</td>
+                                        <td th:text="${professor.telefone}">923453689</td>
+                                        <td th:text="${professor.estadoSexo.sexo}">Masculino</td>
                                         <td th:text="${professor.bilhete}">009LA1214563</td>
                                         <td th:text="${professor.data}">Luanda</td>
                                         <td class="text-right">
                                             <div class="dropdown">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                                 <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_asset"><i class="fa fa-pencil m-r-5"></i> Editar</a></li>
-                                                    <li><a href="#" title="Delete" data-toggle="modal" data-target="#delete_asset"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a></li>
+                                                    <li><a th:href="@{/imel/professor/editar/{id} (id=${professor.id})}" title="Edit" data-toggle="modal" ><i class="fa fa-pencil m-r-5"></i> Editar</a></li>
+                                                    <li><a href="#" title="Delete" data-toggle="modal" th:onclick="|apagar(${professor.id})|"  data-target="#delete_asset"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -82,27 +80,36 @@
                     </div>
                 </div>
             </div>
-           
         </div>
-        <div id="delete_asset" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content modal-md">
+
+        <div class="modal fade" id="delete_asset" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
                     <div class="modal-header">
-                        <h4 class="modal-title">Elimiar Professor</h4>
+                        <h5 class="modal-title" id="exampleModalLabel">Eliminar Professor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
                     </div>
-                    <form>
-                        <div class="modal-body card-box">
-                            <p>Tem certeza de que deseja eliminar este profrofessor?</p>
-                            <div class="m-t-20"> <a href="#" class="btn btn-default" data-dismiss="modal">fechar</a>
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                            </div>
+                    <form th:action="@{/imel/professor/eliminar}" th:method="post">
+                        <div class="modal-body">
+                            Tem certeza de que deseja eliminar este professor?
+                        </div>
+                        <div class="modal-body"> <b>Nota:</b>
+                            <span > Esta operação ira remover os dados permanentemente do sistema.</span>
+                            <br>
+                        </div>
+                        <input type="hidden" name="id" id="identifacador"/>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        
-        <div id="edit_asset" class="modal custom-modal fade" role="dialog">
+
+       <!--<div id="edit_asset" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="modal-content modal-md">
@@ -125,7 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                              <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -154,8 +161,8 @@
                                     </div>
                                 </div>
                             </div>
-    
-                        
+
+
                             <div class="m-t-20 text-center">
                                 <button class="btn btn-primary btn-lg">Salvar Alterações</button>
                             </div>
@@ -163,7 +170,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 
     <script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
@@ -176,7 +183,7 @@
     <script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
-    
+
      <script>
          $('#dtOrderExample').DataTable({
              "language": {
@@ -202,8 +209,6 @@
                  }
              }} );
         </script>
-    
-   
-</body>
 
+</body>
 </html>

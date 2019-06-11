@@ -8,8 +8,9 @@
     <link th:replace="fragments/index::fragments-image "/>
     <title th:replace="fragments/index::fragments-title"/>
 
+    <!--
     <link th:replace="fragments/index::fragments-googleapisFira"/>
-    <link th:replace="fragments/index::fragments-googleapisMaterial"/>
+    <link th:replace="fragments/index::fragments-googleapisMaterial"/>-->
 
     <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/font-awesome.min.css}">
@@ -17,10 +18,14 @@
     <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/dataTables.bootstrap.min.css}">
     <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/select2.min.css}">
     <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/style.css}">
-    <!--[if lt IE 9]>
-    <script th:src="@{/assets/js/html5shiv.min.js}"></script>
-    <script th:src="@{/assets/js/respond.min.js}"></script>
-    <![endif]-->
+    <!--<script th:src="@{/assets/js/html5shiv.min.js}"></script>
+    <script th:src="@{/assets/js/respond.min.js}"></script>-->
+
+
+    <style>
+        .error{color:red}
+    </style>
+
 </head>
 
 <body>
@@ -42,7 +47,7 @@
                         <h4 class="modal-title">Editar Departamento</h4>
                     </div>
                     <div class="modal-body">
-                        <form th:action="@{/imel/disciplina/editar}" th:object="${disciplina}" method="post">
+                        <form id="formulario" name="formulario" th:action="@{/imel/disciplina/editar}" th:object="${disciplina}" method="post">
 
                             <input type="hidden" th:field="*{id}" />
 
@@ -50,7 +55,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nome</label>
-                                        <input id="name" name="name" roleId="name"  required="required"  class="form-control" type="text" th:field="*{nome}">
+                                        <input id="nome" name="nome" roleId="nome" class="form-control" type="text" th:field="*{nome}">
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +65,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Descrição</label>
-                                        <textarea id="descricao" name="descricao"   roleId="descricao" required="required"  th:field="*{descricao}" cols="30" rows="6" class="form-control"></textarea>
+                                        <textarea id="descricao" name="descricao" roleId="descricao"  th:field="*{descricao}" cols="30" rows="6" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -83,22 +88,23 @@
 </div>
 
 
-<div class="sidebar-overlay" data-reff=""></div>
+    <script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/jquery/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/script/validation.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>-->
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
 
-<script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
-<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/assets/js/jquery.dataTables.min.js}"></script>
-<script type="text/javascript" th:src="@{/assets/js/dataTables.bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
-<script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
-<script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
-<script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
-<script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+    <script>
+        $('#dtOrderExample').DataTable();
+    </script>
 
-<script>
-    $('#dtOrderExample').DataTable();
-</script>
 </body>
-
 </html>

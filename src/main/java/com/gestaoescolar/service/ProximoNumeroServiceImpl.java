@@ -32,6 +32,7 @@ public class ProximoNumeroServiceImpl implements ProximoNumeroService {
             int existingValue = getValueProfessor();
             int newValue = existingValue + 1;
 
+
             if(proximoNumero.getNextNumb().compareAndSet(existingValue, newValue)) {
                 return;
             }
@@ -52,7 +53,7 @@ public class ProximoNumeroServiceImpl implements ProximoNumeroService {
         while(true) {
 
             Long id= Long.valueOf(2);
-            com.gestaoescolar.domain.ProximoNumero proximoNumero = findById(id);
+            ProximoNumero proximoNumero = findById(id);
 
             int existingValue = getValueProfessor();
             int newValue = existingValue + 1;

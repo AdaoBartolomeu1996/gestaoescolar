@@ -8,24 +8,24 @@
     <link th:replace="fragments/index::fragments-image "/>
     <title th:replace="fragments/index::fragments-title"/>
 
-    <link th:replace="fragments/index::fragments-googleapisFira"/>
+   <!--<! <link th:replace="fragments/index::fragments-googleapisFira"/>-->
 
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/select2.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-tagsinput.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
-    <!--[if lt IE 9]>
-        <script th:src="@{/assets/js/html5shiv.min.js}"></script>
-         <script th:src="@{/assets/js/respond.min.js}"></script>
-	<![endif]-->
+    <!--<script th:src="@{/assets/js/html5shiv.min.js}"></script> <script th:src="@{/assets/js/respond.min.js}"></script>-->
+
+    <style>
+        .error{color:red}
+    </style>
+
 </head>
 
 <body>
 <div th:replace="fragments/index::navbar"/>
-
     <div class="main-wrapper">
-
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="row">
@@ -35,43 +35,46 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <form>
+
+                        <form id="formulario" name="formulario" th:action="@{/imel/curso/registar}"  method="post">
                             <div class="form-group">
                                 <label>Nome</label>
-                                <input id="name" name="name" roleId="name" required="required" class="form-control" type="text">
+                                <input id="nome" name="nome" roleId="nome"  th:value="${curso.nome}"  class="form-control" type="text">
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Departamento</label>
-                                        <select class="select">
-                                            <
-                                            <option th:each="i : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}"><font></font>
-                                            </option>
+                                        <select class="select" id="departamento" name="departamento" th:field="*{curso.departamento}">
+                                            <option value="">Selcecione...</option>
+                                            <option th:each="departamento:${departamentos}" th:value="${departamento.id}" th:text="${departamento.nome}"></option>
                                         </select>
                                     </div>
                                 </div>
-                                
                             </div>
 
                             <div class="form-group">
                                 <label>Descrição</label>
-                                <textarea  id="descricao" name="descricao" roleId="descricao" required="required"  cols="30" rows="6" class="form-control" placeholder="Digite a descrição"></textarea>
+                                <textarea  id="descricao" name="descricao"  th:value="${curso.descricao}"  roleId="descricao"   cols="30" rows="6" class="form-control" placeholder="Digite a descrição"></textarea>
                             </div>
                         
                             <div class="m-t-20 text-center">
                                 <button class="btn btn-primary btn-lg">Salvar</button>
                             </div>
                         </form>
+                        <br/>
+                        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
                     </div>
                 </div>
             </div>
-           
         </div>
     </div>
-    <div class="sidebar-overlay" data-reff=""></div>
-    <script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
+
+    <script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/jquery/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/script/validation.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>-->
     <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>

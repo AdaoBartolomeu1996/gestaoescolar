@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
 
-
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatterForFieldType(LocalDate.class,new USLocalDateFormatter());

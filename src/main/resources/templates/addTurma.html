@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link th:replace="fragments/index::fragments-image "/>
+    <title th:replace="fragments/index::fragments-title"/>
+
+    <!--<link th:replace="fragments/index::fragments-googleapisFira"/>-->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-tagsinput.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+    <!--<script th:src="@{/assets/js/html5shiv.min.js}"></script> <script th:src="@{/assets/js/respond.min.js}"></script>-->
+
+    <style>
+        .error{color:red}
+    </style>
+
+</head>
+
+<body>
+<div th:replace="fragments/index::navbar"/>
+<div class="main-wrapper">
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h4 class="page-title">Registar Curso</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+
+                    <form id="formulario" name="formulario" th:action="@{/imel/turma/registar}"  method="post">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input id="nome" name="nome" roleId="nome"  th:value="${turma.nome}"  class="form-control" type="text">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Número de Vaga</label>
+                            <input id="numeroVaga" name="numeroVaga" roleId="numeroVaga"  th:value="${turma.numeroVaga}"  class="form-control" type="number">
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label>Data de Terminino</label>
+                                <div class="cal-icon" >
+                                    <input name="data" id="data" class="form-control datetimepicker" th:value="${turma.dataTermino}"  th:placeholder="${dateFormat}"    type="text">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Curso</label>
+                                    <select class="select" id="curso" name="curso" th:field="*{turma.curso}">
+                                        <option value="">Selcecione...</option>
+                                        <option th:each="curso:${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Turno</label>
+                                    <select class="select" id="turno" name="turno" th:field="*{turma.turno}">
+                                        <option value="">Selcecione...</option>
+                                        <option th:each="turno:${turnos}" th:value="${turno.turno}" th:text="${turno}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="m-t-20 text-center">
+                            <button class="btn btn-primary btn-lg">Salvar</button>
+                        </div>
+                    </form>
+                    <br/>
+                    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.js}"></script>
+<script type="text/javascript" th:src="@{/assets/jquery/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/assets/script/validation.js}"></script>
+<!--<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>-->
+<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap-tagsinput.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+</body>
+
+</html>

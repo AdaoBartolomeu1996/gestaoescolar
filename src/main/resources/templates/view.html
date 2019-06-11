@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+
+    <link th:replace="fragments/index::fragments-image "/>
+    <title th:replace="fragments/index::fragments-title"/>
+
+   <!-- <link th:replace="fragments/index::fragments-googleapisFira"/>-->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-tagsinput.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{assets/plugins/light-gallery/css/lightgallery.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+
+    <style>
+        .error{color:red}
+    </style>
+
+    <!--[if lt IE 9]>
+		<script th:src="@{/assets/js/html5shiv.min.js}"></script>
+		<script th:src="@{/assets/js/respond.min.js}"></script>
+	[endif]-->
+
+</head>
+
+<body>
+
+<div th:replace="fragments/index::navbar"/>
+
+<div class="main-wrapper">
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+
+                <a th:href="@{/imel/inscricao/pesquisar}" class="btn btn-primary rounded pull-right" data-toggle="modal"><i class="fa  fa-times"></i> </a>
+
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h4 class="page-title">Inscrição</h4>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-md-offset-2">
+
+                    <form id="formulario" name="formulario" th:action="@{/imel/inscricao/editar}" th:object="${estudante}" enctype="multipart/form-data" method="post">
+
+                        <input type="hidden" th:field="*{id}" />
+
+
+                        <div class=" text-center">
+                            <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img th:src="@{${'/assets/imagens/fotoEstudante/' +estudante.fotoAluno}}" name="aboutme" width="140" height="140" class="ounded mx-auto d-block img-circle"></a>
+
+                        </div>
+
+                        <fieldset disabled>
+
+                                <div class="form-group">
+                                    <label>Nome Completo do Candidato</label>
+                                    <input class="form-control"  th:field="*{nome}" placeholder="Disabled input" type="text" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Filiação Pai</label>
+                                    <input class="form-control"  th:field="*{nomePai}" placeholder="Disabled input" type="text" >
+                                </div>
+
+                               <div class="form-group ">
+                                    <label>Filiação Mãe</label>
+                                    <input class="form-control" th:field="*{nomeMae}"  placeholder="Disabled input" type="text" >
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Número do Bilhete</label>
+                                    <input class="form-control"  th:field="*{bilhete}" placeholder="Disabled input" type="text" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Município</label>
+                                    <select class="select" disabled id="municipio" name="municipio"  th:field="*{municipio}">
+                                        <option disabled th:each="municipio:${municipio}"  th:text="${municipio.municipio}" th:value="${municipio}">Masculino</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Bairro</label>
+                                    <input class="form-control" th:field="*{bairro}" placeholder="Disabled input" type="text" >
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Rua</label>
+                                    <input class="form-control"  th:field="*{rua}" placeholder="Disabled input" type="text" >
+                                </div>
+
+                                <div class="form-group ">
+                                    <label> Residência</label>
+                                    <input class="form-control" th:field="*{residencia}"  placeholder="Disabled input" type="text" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Curso</label>
+                                    <select class="select" disabled id="curso" name="curso" th:field="*{curso}">
+                                        <option disabled th:each="curso:${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Data de Nascimento</label>
+                                    <div class="cal-icon" >
+                                        <input name="data" id="data" class="form-control " th:field="*{data}"  th:placeholder="${dateFormat}"    >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Sexo</label>
+                                    <select class="select" disabled id="estadoSexo" name="estadoSexo"  th:field="*{estadoSexo}">
+                                        <option  disabled th:each="estado:${estadoSexo}"  th:text="${estado.sexo}" th:value="${estado}">Masculino</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label> Nome da Instituição Onde Estudou</label>
+                                    <input class="form-control" id="instituicao" name="instituicao" roleId="instituicao" th:value="${estudante.instituicao}" placeholder="Digite o nome da instituição" type="text" >
+                                </div>
+
+                        </fieldset>
+
+
+
+                            <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Informações do Certificado e Bilhete</h1>
+
+                        <div class="content container-fluid">
+                            <div id="lightgallery" class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 m-b-20">
+                                    <a th:href="@{${'/assets/imagens/fotoEstudante/' +estudante.certificadoOrininalFoto}}" alt="crtificado.png">
+                                        <img class="img-thumbnail" th:src="@{${'/assets/imagens/fotoEstudante/' +estudante.certificadoOrininalFoto}}" alt="crtificado.png">
+                                    </a>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 m-b-20">
+                                    <a th:href="@{${'/assets/imagens/fotoEstudante/' +estudante.certificadoOrininalFoto}}" alt="crtificado.png">
+                                        <img class="img-thumbnail" th:src="@{${'/assets/imagens/fotoEstudante/' +estudante.certificadoOrininalFoto}}" alt="crtificado.png">
+                                    </a>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 m-b-20">
+                                    <a th:href="@{${'/assets/imagens/fotoEstudante/' +estudante.certificadoOrininalFoto}}" alt="crtificado.png">
+                                        <img class="img-thumbnail" th:src="@{${'/assets/imagens/fotoEstudante/' +estudante.certificadoOrininalFoto}}" alt="crtificado.png">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                          <!--  <hr class="mt-5 mb-5">
+
+                            <div class="row text-center text-lg-left">
+
+                                <div class="form-group ">
+                                    <a href="#" class="d-block mb-4 h-500">
+                                        <img class="img-fluid img-thumbnail" th:src="@{${'/assets/imagens/fotoEstudante/' +estudante.certificadoOrininalFoto}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="form-group ">
+                                    <a href="#" class="d-block mb-4 h-500">
+                                        <img class="img-fluid img-thumbnail" th:src="@{${'/assets/imagens/fotoEstudante/' +estudante.fotoBi}}" alt="">
+                                    </a>
+                                </div>
+
+                            </div> -->
+
+
+                        <!-- /.container -->
+
+                        <div class="text-center">
+                            <a href="#" title="Delete" data-toggle="modal" th:onclick="|apagar(${estudante.id})|" class=" btn btn-primary btn-lg "  data-target="#delete_asset"><i></i> Eliminar</a></li>
+                        </div>
+
+                        <!-- <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>-->
+
+
+                    </form>
+
+                    <br/>
+
+                    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/jquery/jquery.slim.min.js}"></script>
+<!--<script type="text/javascript" th:src="@{/assets/jquery/additional-methods.js}"></script>-->
+<script type="text/javascript" th:src="@{/assets/jquery/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/assets/script/validation.js}"></script>
+<!--<script type="text/javascript" th:src="@{/assets/js/jquery-3.4.1.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>-->
+<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap-tagsinput.js}"></script>
+<script type="text/javascript" th:src="@{/assets/plugins/light-gallery/js/lightgallery-all.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+

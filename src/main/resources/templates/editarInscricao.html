@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link th:replace="fragments/index::fragments-image "/>
+    <title th:replace="fragments/index::fragments-title"/>
+
+    <!--
+    <link th:replace="fragments/index::fragments-googleapisFira"/>-->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-tagsinput.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/jquery.steps.css}">
+    <script type="text/javascript" th:src="@{/assets/jquery/jquery.steps.js}"></script>
+
+
+
+    <style>
+        .error{color:red}
+    </style>
+
+</head>
+
+<body>
+
+<div th:replace="fragments/index::navbar"/>
+
+
+
+
+
+<div class="main-wrapper">
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h4 class="page-title">Editar Inscrição</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+
+                    <form id="formulario" name="formulario" th:action="@{/imel/inscricao/editar}" th:object="${estudante}" enctype="multipart/form-data" method="post">
+
+                        <input type="hidden" th:field="*{id}" />
+
+                        <h3>Passo</h3>
+                        <fieldset>
+                            <legend>Informação do Candidato</legend>
+
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label>Nome Completo do Candidato</label>
+                                    <input class="form-control" id="nome" name="nome" roleId="nome" th:field="*{nome}" placeholder="Digite o nome" type="text" >
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label>Filiação Pai</label>
+                                    <input class="form-control" id="nomePai" name="nomePai" roleId="nomePai" th:field="*{nomePai}" placeholder="Digite a filiação" type="text" >
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group ">
+                                    <label>Filiação Mãe</label>
+                                    <input class="form-control" id="nomeMae" name="nomeMae" roleId="nomeMae" th:field="*{nomeMae}"  placeholder="Digite a filiação" type="text" >
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group ">
+                                    <label>Número do Bilhete</label>
+                                    <input class="form-control" id="bilhete" name="bilhete" roleId="bilhete" th:field="*{bilhete}" placeholder="Digite o bilhete" type="text" >
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <h3>Passo</h3>
+                        <fieldset>
+
+                            <legend>Informação do Candidato</legend>
+
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label>Município</label>
+                                    <input class="form-control" id="municipio" name="municipio" roleId="municipio" th:field="*{municipio}" placeholder="Digite o município" type="text" >
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label>Bairro</label>
+                                    <input class="form-control" id="bairro" name="bairro" roleId="bairro" th:field="*{bairro}" placeholder="Digite o bairro" type="text" >
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group ">
+                                    <label>Rua</label>
+                                    <input class="form-control" id="rua" name="rua" roleId="rua" th:field="*{rua}" placeholder="Digite a rua" type="text" >
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group ">
+                                    <label> Residência</label>
+                                    <input class="form-control" id="residencia" name="residencia" roleId="residencia" th:field="*{residencia}"  placeholder="Digite a residência" type="text" >
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <h3>Passo</h3>
+
+                        <fieldset>
+
+                            <legend>Informação do Candidato</legend>
+
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label>Curso</label>
+                                    <select class="select" id="curso" name="curso" th:field="*{curso}">
+                                        <option value="">Selcecione...</option>
+                                        <option th:each="curso:${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group ">
+                                    <label>Data de Nascimento</label>
+                                    <div class="cal-icon" >
+                                        <input name="data" id="data" class="form-control datetimepicker" th:field="*{data}"  th:placeholder="${dateFormat}"    type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Sexo</label>
+                                    <select class="select" id="estadoSexo" name="estadoSexo"  th:field="*{estadoSexo}">
+                                        <option value="">Selcecione...</option>
+                                        <option th:each="estado:${estadoSexo}"  th:text="${estado.sexo}" th:value="${estado}">Masculino</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label>Foto tipo Passe</label><p style="display: inline">*(As dimenções de imagem recomendada é de 150 x 150 pixels.)</p>
+                                    <input class="form-control" id="alunoFoto" name="alunoFoto" roleId="alunoFoto"  placeholder="Escolaha a ficheiro" type="file" >
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group ">
+                                    <label> Nome da Instituição Onde Estudou</label>
+                                    <input class="form-control" id="instituicao" name="instituicao" roleId="instituicao" th:value="${estudante.instituicao}" placeholder="Digite o nome da instituição" type="text" >
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                    </form>
+
+                    <br/>
+
+                    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+<script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.js}"></script>
+<!--<script type="text/javascript" th:src="@{/assets/jquery/additional-methods.js}"></script>-->
+<script type="text/javascript" th:src="@{/assets/jquery/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/assets/jquery/jquery.steps.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/script/validation.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap-tagsinput.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
+
+
+<script>
+    var form = $("#formulario").show();
+
+    form.steps({
+        headerTag: "h3",
+        bodyTag: "fieldset",
+        //autoFocus: true,
+        //saveState: true,
+
+        transitionEffect: "slideLeft",
+
+        labels: {
+            cancel: "Cancel",
+            current: "current step:",
+            pagination: "Pagination",
+            finish: "Salvar Altereções",
+            next: "Próximo",
+            previous: "Anterior",
+            loading: "Loading ..."
+        },
+
+
+
+
+
+        onStepChanging: function (event, currentIndex, newIndex)
+        {
+            // Allways allow previous action even if the current form is not valid!
+            if (currentIndex > newIndex)
+            {
+                return true;
+            }
+
+            // Needed in some cases if the user went back (clean up)
+            if (currentIndex < newIndex)
+            {
+                // To remove error styles
+                form.find(".body:eq(" + newIndex + ") label.error").remove();
+                form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+            }
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+
+        onFinishing: function (event, currentIndex)
+        {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex)
+        {
+            form.submit();
+
+        }
+    })/*.validate({
+        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+        rules: {
+            confirm: {
+                equalTo: "#password-2"
+            },
+            nome:{
+                required: true
+            },
+
+            nomePai:{
+                required: true
+            },
+            nomeMae:{
+                required: true
+            },
+            bilhete:{
+                required: true
+            },
+            municipio:{
+                required: true
+            },
+            bairro:{
+                required: true
+            },
+            rua:{
+                required: true
+            },
+            residencia:{
+                required: true
+            }
+
+            }
+            ,messages:{
+            nome:{
+                required:"Por favor digite o nome."
+            }
+
+        }
+    })*/;
+</script>
+
+</body>
+
+</html>

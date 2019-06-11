@@ -53,7 +53,7 @@ public class DisciplinaController {
         return "pesquisarDisciplina";
     }
 
-    @GetMapping("/editarId/{id}")
+    @GetMapping("/editar/{id}")
     public String disciplinaPesquisarId(@PathVariable("id") Long id , Model model){
 
         model.addAttribute("disciplina",disciplinaService.findById(id));

@@ -8,8 +8,8 @@
     <link th:replace="fragments/index::fragments-image "/>
     <title th:replace="fragments/index::fragments-title"/>
 
-    <link th:replace="fragments/index::fragments-googleapisFira"/>
-    <link th:replace="fragments/index::fragments-googleapisMaterial"/>
+   <!-- <link th:replace="fragments/index::fragments-googleapisFira"/>
+    <link th:replace="fragments/index::fragments-googleapisMaterial"/>-->
 
     <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/font-awesome.min.css}">
@@ -35,7 +35,7 @@
                         <h4 class="page-title">Pesquisar Departamento</h4>
                     </div>
                     <div class="col-xs-4 text-right m-b-30">
-                        <a th:href="@{/imel/departamento/registar}" class="btn btn-primary rounded pull-right" data-toggle="modal"><i class="fa fa-plus"></i> Novo Deparamento</a>
+                        <a th:href="@{/imel/departamento/registar}" class="btn btn-primary rounded pull-right" data-toggle="modal"><i class="fa fa-plus"></i> Novo Deparamento </a>
                     </div>
                 </div>
             
@@ -66,7 +66,7 @@
 
                                                     <!--<li><a th:href="@{/imel/departamento/editarId/{id} (id=${departamento.id})}" title="Edit" data-toggle="modal" ><i class="fa fa-pencil m-r-5"></i> Editar</a></li> -->
 
-                                                    <li><a th:href="@{/imel/departamento/editarId/{id} (id=${departamento.id})}" title="Edit" data-toggle="modal" ><i class="fa fa-pencil m-r-5"></i> Editar</a></li>
+                                                    <li><a th:href="@{/imel/departamento/editar/{id} (id=${departamento.id})}" title="Edit" data-toggle="modal" ><i class="fa fa-pencil m-r-5"></i> Editar</a></li>
 
                                                     <li><a href="#" title="Delete" data-toggle="modal" th:onclick="|apagar(${departamento.id})|"  data-target="#delete_asset"><i class="fa fa-trash-o m-r-5"></i> Eliminar</a></li>
 
@@ -82,32 +82,30 @@
                     </div>
                 </div>
             </div>
-           
         </div>
 
-      <div class="modal fade" id="delete_asset" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="delete_asset" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
 
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Eliminar Departamento</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form th:action="@{/imel/departamento/eliminar}" th:method="post">
-                    <div class="modal-body">
-                        Tem certeza de que deseja eliminar este departamento?
-                    </div>
+                        <div class="modal-body">
+                            Tem certeza de que deseja eliminar este departamento?
+                        </div>
                         <div class="modal-body"> <b>Nota:</b>
                             <span > Esta operação ira remover os dados permanentemente do sistema.</span>
                             <br>
                         </div>
                         <input type="hidden" name="id" id="identifacador"/>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -151,5 +149,4 @@
              }} );
         </script>
 </body>
-
 </html>

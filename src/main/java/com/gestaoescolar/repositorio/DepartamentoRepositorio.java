@@ -8,7 +8,6 @@ import java.util.List;
 public interface DepartamentoRepositorio extends CrudRepository<Departamento,Long> {
 
     Departamento findByNome(String nome);
-
     void  deleteById(Long id);
 
     List<Departamento> findAll();

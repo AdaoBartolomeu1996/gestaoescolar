@@ -10,6 +10,17 @@ function apagar(x) {
 }
 
 
+function fechar(x) {
+    //alert(x);
+    var id = Number(x);
+    if(isNaN(id)){
+        alert("Nao é um numero");
+        return;
+    }
+    $("#idfechar").val(id);
+}
+
+
 function cancelarButton(x){
     var url = window.location.origin;
     console.log("voltar : " + x);

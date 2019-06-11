@@ -1,48 +1,59 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head >
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0"/>
     <link th:fragment="fragments-image" rel="shortcut icon" type="image/x-icon" th:href="@{/assets/img/favicon.png}">
-    <title th:fragment="fragments-title" >swgaimel</title>
+  <title th:fragment="fragments-title" >swgaimel</title>
 
-    <link th:fragment="fragments-googleapisFira" href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700" rel="stylesheet"/>
-    <link th:fragment="fragments-googleapisMaterial" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--   <link th:fragment="fragments-googleapisFira" href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700" rel="stylesheet"/>
+     <link th:fragment="fragments-googleapisMaterial" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>-->
 
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/fullcalendar.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/dataTables.bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/select2.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-datetimepicker.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/plugins/morris/morris.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}"/>
-    
-</head>
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}"/>
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}"/>
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/fullcalendar.min.css}"/>
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/dataTables.bootstrap.min.css}"/>
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/select2.min.css}"/>
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-datetimepicker.min.css}"/>
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/plugins/morris/morris.css}"/>
+     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}"/>
 
-<body>
-    <div class="main-wrapper bg-secondary" th:fragment="navbar">
-        <div class="header + " >
-            <div class="header-left">
-                <a  th:href="@{/imel/inicio}" class="logo">
-                    <img th:src="@{/assets/img/logoBranco.png}" width="120" height="50" />
-                </a>
-            </div>
-            
-            <a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
-            <ul class="nav navbar-nav navbar-right user-menu pull-right">
-                
-                <li class="dropdown">
-                    <a href="profile.html" class="dropdown-toggle user-link" data-toggle="dropdown" title="Admin">
-                        <span class="user-img"><img class="img-circle" th:src="@{/assets/img/user.jpg}" width="40" alt="Admin"></span>
-                        <span>Adão Gaspar</span>
-                        <i class="caret"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="profile.html">Perfil</a></li>
-                        <li><a href="edit-profile.html">Alterar Senha</a></li>
-                        <li><a href="login.html">Sair</a></li>
+ </head>
+
+ <body>
+     <div class="main-wrapper bg-secondary" th:fragment="navbar">
+         <div class="header + " >
+             <div class="header-left">
+                 <a  th:href="@{/imel/inicio}" class="logo">
+                     <img th:src="@{/assets/img/logoBranco.png}" width="120" height="50" />
+                 </a>
+             </div>
+
+             <div class="page-title-box pull-left">
+                 <h3 th:if="${#authorization.expression('hasRole(''ROLE_COORDENADOR'')')}">Coordenador</h3>
+                 <h3 th:if="${#authorization.expression('hasRole(''ROLE_PROFESSOR'')')}">Professor</h3>
+                 <h3 th:if="${#authorization.expression('hasRole(''ROLE_ESTUDANTE'')')}">Estudante</h3>
+                 <h3 th:if="${#authorization.expression('hasRole(''ROLE_DIRETOR'')')}">Diretor</h3>
+             </div>
+
+             <a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
+             <ul class="nav navbar-nav navbar-right user-menu pull-right">
+
+                 <li class="dropdown">
+                     <a href="profile.html" class="dropdown-toggle user-link" data-toggle="dropdown" title="Admin">
+                         <span class="user-img" th:if="${#authorization.expression('hasRole(''ROLE_ESTUDANTE'')') or #authorization.expression('hasRole(''ROLE_COORDENADOR'')') or #authorization.expression('hasRole(''ROLE_PROFESSOR'')') or #authorization.expression('hasRole(''ROLE_DIRETOR'')')}"><img class="img-circle" th:src="@{${'/assets/imagens/fotoPerfil/' +usuario.foto.fotoUrl}}"width="40" alt="Admin"></span>
+                         <span th:if="${#authorization.expression('hasRole(''ROLE_ADIMIN'')')}" >Administrador</span>
+                         <span th:if="${#authorization.expression('hasRole(''ROLE_CANDIDATO'')')}" >Candidato</span>
+                         <span th:if="${#authorization.expression('hasRole(''ROLE_MATRICULA'')')}" >Matricula</span>
+
+                         <i class="caret"></i>
+                     </a>
+                     <ul class="dropdown-menu">
+                         <!--<li><a href="profile.html">Perfil</a></li>-->
+                        <li sec:authorize=" hasRole('ROLE_DIRETOR') or hasRole('ROLE_ADIMIN') or hasRole('ROLE_ESTUDANTE') or hasRole('ROLE_PROFESSOR') or hasRole('ROLE_COORDENADOR') "><a href="edit-profile.html">Alterar Senha</a></li>
+
+                        <li><a th:href="@{/logout}">Sair</a></li>
                     </ul>
                 </li>
             </ul>
@@ -50,46 +61,56 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <ul class="dropdown-menu pull-right">
                     <li><a href="profile.html">Perfil</a></li>
-                        <li><a href="edit-profile.html">Alterar Senha</a></li>
+                        <li ><a href="edit-profile.html">Alterar Senha</a></li>
                         <li><a href="login.html">Sair</a></li>
                 </ul>
             </div>
-            
+
         </div>
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">Menu</li>
-                        <li class="active">
-                            <a th:href="@{/imel/inicio}"><i class="fa fa-dashboard"></i>Painel</a>
+                        <li class="active" >
+                            <a th:if="${#authorization.expression('hasRole(''ROLE_ADIMIN'')') or #authorization.expression('hasRole(''ROLE_COORDENADOR'')') or #authorization.expression('hasRole(''ROLE_DIRETOR'')')}" th:href="@{/imel/painel}"><i class="fa fa-dashboard"></i>Painel</a>
+                            <a th:if="${#authorization.expression('hasRole(''ROLE_CANDIDATO'')') or #authorization.expression('hasRole(''ROLE_MATRICULA'')')}" ><i class="fa fa-dashboard"></i> </a>
+
                         </li>
-                       
-                        <li class="submenu">
+
+                        <li class="submenu" sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_ADIMIN')">
+                            <a href="#"><i  aria-hidden="true"></i> <span> Ano Letivo</span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled" style="display: none;">
+                                <li ><a th:href="@{/imel/anoletivo/registar}">Registrar</a></li>
+                                <li><a th:href="@{/imel/anoletivo/pesquisar}">Pesquisar</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="submenu" sec:authorize="hasRole('ROLE_DIRETOR')or hasRole('ROLE_COORDENADOR') or hasRole('ROLE_PROFESSOR') or hasRole('ROLE_ADIMIN')">
                             <a href="#"><i  aria-hidden="true"></i> <span> Turma</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled" style="display: none;">
-                               <li><a href="#">Registrar</a></li>
+                               <li ><a href="#">Registrar</a></li>
                                 <li><a href="#">Pesquisar</a></li>
                             </ul>
                          </li>
                             
-                        <li class="submenu">
+                        <li   class="submenu" sec:authorize="hasRole('ROLE_DIRETOR')or hasRole('ROLE_COORDENADOR') or hasRole('ROLE_ADIMIN')">
                             <a href="#"><i aria-hidden="true"></i> <span> Disciplina</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled" style="display: none;">
-                               <li><a th:href="@{/imel/disciplina/registar}">Registar </a></li>
+                               <li ><a th:href="@{/imel/disciplina/registar}">Registar </a></li>
                                 <li><a th:href="@{/imel/disciplina/pesquisar}">Pesquisar </a></li>
                             </ul>
                          </li>
                                 
-                        <li class="submenu">
+                        <li class="submenu" sec:authorize="hasRole('ROLE_DIRETOR')or hasRole('ROLE_COORDENADOR') or hasRole('ROLE_ADIMIN')" >
                             <a href="#"><i  aria-hidden="true"></i> <span> Curso</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled" style="display: none;">
-                              <li><a th:href="@{/imel/curso/registar}">Registar </a></li>
+                                <li ><a th:href="@{/imel/curso/registar}">Registar </a></li>
                                 <li><a th:href="@{/imel/curso/pesquisar}">Pesquisar </a></li>
                             </ul>
                         </li>
 
-                        <li class="submenu">
+                        <li  class="submenu"  sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_COORDENADOR') or hasRole('ROLE_PROFESSOR') or hasRole('ROLE_ADIMIN')">
                             <a href="#"><i  aria-hidden="true"></i> 
                                 <span> Avaliação</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled" style="display: none;">
@@ -97,41 +118,62 @@
                                 <li><a href="form-input-groups.html">Pesquisar</a></li>
                             </ul>
                         </li>
-                            
-                        <li class="submenu">
+
+                        <li>
+                            <a sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_ADIMIN')" th:href="@{/imel/diretor/atribuir}"><i aria-hidden="true"></i> Atribuir Director</a>
+                        </li>
+
+
+                        <li class="submenu" sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_COORDENADOR') or hasRole('ROLE_ADIMIN')" >
+                            <a href="#"><i  aria-hidden="true"></i> <span> Diretor</span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled" style="display: none;">
+                                <li sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_ADIMIN')"><a th:href="@{/imel/diretor/pesquisar}">Pesquisar</a></li>
+                            </ul>
+                        </li>
+
+                        <li  class="submenu" sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_COORDENADOR') or hasRole('ROLE_ADIMIN')">
                             <a href="#"><i  aria-hidden="true"></i> <span> Professor</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled" style="display: none;">
-                               <li><a th:href="@{/imel/professor/registar}">Registar </a></li>
-                                <li><a th:href="@{/imel/professor/pesquisar}">Pesquisar </a></li>
+                               <li><a th:href="@{/imel/professor/registar}">Registar</a></li>
+                                <li><a th:href="@{/imel/professor/pesquisar}">Pesquisar</a></li>
                             </ul>
                         </li>  
                     
-                         <li class="submenu">
-                            <a href="#"><i  aria-hidden="true"></i> <span> Estudante</span> <span class="menu-arrow"></span></a>
-                            <ul class="list-unstyled" style="display: none;">
-                                <li><a href="#">Adicionar </a></li>
-                                <li><a href="#">Pesquisar </a></li>
-                            </ul>
-                        </li> 
+                       <!--sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_CANDIDATO')"-->
                          
-                         <li class="submenu">
+                         <li  class="submenu" sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_CANDIDATO') or hasRole('ROLE_ADIMIN')">
                             <a href="#"><i aria-hidden="true"></i> <span> Inscrição</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled" style="display: none;">
-                                <li><a href="form-basic-inputs.html">Registar </a></li>
-                                <li><a href="form-input-groups.html">Pesquisar </a></li>
+                                <li><a th:href="@{/imel/inscricao/registar}">Registar </a></li>
+                                <li sec:authorize=" hasRole('ROLE_DIRETOR')or hasRole('ROLE_ADIMIN')"><a th:href="@{/imel/inscricao/pesquisar}">Pesquisar </a></li>
                                 
                             </ul>
-                        </li> 
-                            
-                        <li class="submenu">
-                            <a href="#"><i aria-hidden="true"></i> <span> Coordenador</span> <span class="menu-arrow"></span></a>
+                        </li>
+
+                        <li class="submenu" sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_MATRICULA') or hasRole('ROLE_ADIMIN')">
+                            <a href="#"><i  aria-hidden="true"></i> <span> Matricula</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled" style="display: none;">
-                               <li><a href="#">Registar </a></li>
+                                <li ><a href="#">Adicionar </a></li>
+                            </ul>
+                        </li>
+
+
+                        <li class="submenu" sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_COORDENADOR') or hasRole('ROLE_ADIMIN')">
+                            <a href="#"><i  aria-hidden="true"></i> <span> Estudante</span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled" style="display: none;">
                                 <li><a href="#">Pesquisar </a></li>
                             </ul>
                         </li>
+                            
+                        <li class="submenu" sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_ADIMIN')">
+                            <a href="#"><i aria-hidden="true"></i> <span> Coordenador</span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled" style="display: none;">
+                               <li><a th:href="@{/imel/coordenadorCurso/professores}">Registar </a></li>
+                                <li><a th:href="@{/imel/coordenadorCurso/pesquisar}">Pesquisar </a></li>
+                            </ul>
+                        </li>
                         
-                        <li class="submenu">
+                        <li  class="submenu" sec:authorize="hasRole('ROLE_DIRETOR') or hasRole('ROLE_ADIMIN')">
                             <a href="#"><i aria-hidden="true"></i> <span> Departamento</span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled" style="display: none;">
                                 <li><a th:href="@{/imel/departamento/registar}">Registar </a></li>
@@ -145,7 +187,6 @@
        
     </div>
 
-    <div class="sidebar-overlay" data-reff=""></div>
     <script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>

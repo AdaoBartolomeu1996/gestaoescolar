@@ -92,6 +92,9 @@ textarea.form-control {resize: vertical;}
 
 .elemento{   left: 200px;}
 
+.paragrafo2{
+    font-size: 14px;
+}
 
 margem3 {
     background: #900;
@@ -642,7 +645,7 @@ table.table td h2 span {color: #9e9e9e;display: block;font-size: 12px;margin-top
 */
 
 .form-focus {display: flex;height: 50px;position: relative;}
-.form-focus .control-label {font-size: 16px;font-weight: 400;opacity: 0.4;pointer-events: none;position: absolute;
+.form-focus .control-label {font-size: 16px;font-weight: 400;opacity: 0.6;pointer-events: none;position: absolute;
 -webkit-transform: translate3d(0, 22px, 0) scale(1);
 -ms-transform: translate3d(0, 22px, 0) scale(1);
 -o-transform: translate3d(0, 22px, 0) scale(1);

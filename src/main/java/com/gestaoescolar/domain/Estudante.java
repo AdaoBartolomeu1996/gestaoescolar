@@ -1,12 +1,15 @@
 package com.gestaoescolar.domain;
 
+import com.gestaoescolar.domain.enumEstado.EnumMunicipio;
 import com.gestaoescolar.domain.enumEstado.EstadoEstudante;
 import com.gestaoescolar.domain.enumEstado.EstadoSexo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,30 +26,40 @@ public class Estudante {
 
     private String numeroMatricula;
 
-    private String numeroInscricao;
-
     private  String nome;
 
-    private String bi;
+    private String bilhete;
 
     private String nomePai;
 
     private String nomeMae;
 
-    private int telefoneEncarregado;
+    private int telefoneEncarregado;//Na fase da Matricula
 
-    private String email;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate data;
 
-    private Date data;
+    private String bairro;
+
+    private String rua;
+
+    private String residencia;
 
     private String fotoAluno;
 
     private String certificadoOrininalFoto;
 
-    private String fotocopiaBi;
+    private String instituicao;
+
+    private  int media;
+
+    private String fotoBi;
 
     @Enumerated(EnumType.STRING)
     private EstadoSexo estadoSexo;
+
+    @Enumerated(EnumType.STRING)
+    private EnumMunicipio municipio;
 
     @Enumerated(EnumType.STRING)
     private EstadoEstudante estadoEstudante;
@@ -54,12 +67,6 @@ public class Estudante {
     @OneToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
-
-    @OneToOne(mappedBy = "estudante", cascade = CascadeType.ALL)
-    private EstudanteTelefone telefone;
-
-    @OneToOne(mappedBy = "estudante", cascade = CascadeType.ALL)
-    private EstuanteEndereco endereco;
 
     @ManyToOne
     @JoinColumn(name = "turma_id")

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link th:replace="fragments/index::fragments-image "/>
+    <title th:replace="fragments/index::fragments-title"/>
+
+    <!--   <link th:replace="fragments/index::fragments-googleapisFira"/>
+    <link th:replace="fragments/index::fragments-googleapisMaterial"/> -->
+
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/dataTables.bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/style.css}">
+    <!--[if lt IE 9]>
+    <script th:src="@{/assets/js/html5shiv.min.js}"></script>
+    <script th:src="@{/assets/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div th:replace="fragments/index::navbar"/>
+
+<div class="main-wrapper">
+    <div class="page-wrapper">
+        <div id="edit_asset" class="custom-modal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- <button  type="button" class="close" data-dismiss="modal">&times;</button>-->
+
+                <button type="button" th:onclick="|cancelarButton('/imel/coordenadorCurso/pesquisar')|" class="close" data-dismiss="modal" >&times</button>
+
+                <div class="modal-content modal-md">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Editar Professor</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/imel/professor/editar}" th:object="${professor}" method="post">
+
+                            <input type="hidden" th:field="*{id}"/>
+
+                            <div class="form-group">
+                                <label>Nome Completo</label>
+                                <input class="form-control" id="nome" name="nome" roleId="nome" th:field="*{nome}" placeholder="Digite o nome" type="text" required="required">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input class="form-control" id="email" name="email" type="email"   th:field="*{email}" roleId="email" placeholder="exemplo@exemplo.com" required="required" >
+                            </div>
+
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input class="form-control" id="telefone" name="telefone" roleId="telefone" th:field="*{telefone}" type = "tel"  pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="9xxxxxxxx" required="required">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Sexo</label>
+                                        <select class="select" required="required" th:field="*{estadoSexo}">
+                                            <option th:each="estado:${estadoSexo}"  th:text="${estado.sexo}" th:value="${estado}"  >Masculino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group ">
+                                        <label>Data de Nascimento</label>
+                                        <div class="cal-icon">
+                                            <input class="form-control datetimepicker" th:field="*{data}"  th:placeholder="${dateFormat}" required="required" placeholder="Escolha a data" name="data" id="data" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Bilhete</label>
+                                <input class="form-control" id="bilhete" name="bilhete" roleId="bilhete"  th:field="*{bilhete}"  type="text" placeholder="009XXXXXXXXXXX" required="required">
+                            </div>
+
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-primary btn-lg">Salvar Alterações</button>
+                            </div>
+
+                        </form>
+
+                        <br/>
+
+                        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="sidebar-overlay" data-reff=""></div>
+
+<script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/dataTables.bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+
+
+</body>
+
+</html>

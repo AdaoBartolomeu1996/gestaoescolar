@@ -15,7 +15,7 @@ public class Diretor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @OneToOne
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;

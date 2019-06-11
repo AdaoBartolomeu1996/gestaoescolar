@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link th:replace="fragments/index::fragments-image "/>
+    <title th:replace="fragments/index::fragments-title"/>
+    <!--
+    <link th:replace="fragments/index::fragments-googleapisFira"/>
+    <link th:replace="fragments/index::fragments-googleapisMaterial"/>-->
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/dataTables.bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/select2.min.css}">
+    <link rel="stylesheet" type="text/css"  th:href="@{/assets/css/style.css}">
+    <!--<script th:src="@{/assets/js/html5shiv.min.js}"></script><script th:src="@{/assets/js/respond.min.js}"></script>-->
+
+    <style>
+        .error{color:red}
+    </style>
+
+</head>
+
+<body>
+
+<div th:replace="fragments/index::navbar"/>
+
+<div class="main-wrapper">
+    <div class="page-wrapper">
+        <div id="edit_asset" class="custom-modal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- <button  type="button" class="close" data-dismiss="modal">&times;</button>-->
+
+                <button type="button" th:onclick="|cancelarButton('/imel/anoletivo/pesquisar')|" class="close" data-dismiss="modal" >&times</button>
+
+
+                <div class="modal-content modal-md">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Editar Ano Letivo</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="formulario" name="formulario" th:action="@{/imel/anoletivo/editar}" th:object="${anoLetivo}" method="post">
+
+                            <input type="hidden" th:field="*{id}" />
+
+                            <div class="form-group">
+                                <label>Ano Letivo</label>
+                                <div class="cal-icon" >
+                                    <input name="anoAbertura" id="anoAbertura" class="form-control datetimepicker"  th:field="*{anoAbertura}"  th:placeholder="${dateFormat}"    type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label>Data de Início das Inscrições</label>
+                                        <div class="cal-icon" >
+                                            <input name="dataInscricaoInicio" id="dataInscricaoInicio" class="form-control datetimepicker" th:field="*{dataInscricaoInicio}"  th:placeholder="${dateFormat}"    type="text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label>Data de Término das Inscrições</label>
+                                        <div class="cal-icon" >
+                                            <input name="dataInscricaoFim" id="dataInscricaoFim" class="form-control datetimepicker" th:field="*{dataInscricaoFim}"  th:placeholder="${dateFormat}"    type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label>Data de Início das Matrícuas</label>
+                                        <div class="cal-icon" >
+                                            <input name="dataMatriculaInicio" id="dataMatriculaInicio" class="form-control datetimepicker" th:field="*{dataMatriculaInicio}"  th:placeholder="${dateFormat}"    type="text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label>Data de Término das Matrícuas</label>
+                                        <div class="cal-icon" >
+                                            <input name="dataMatriculaFim" id="dataMatriculaFim" class="form-control datetimepicker" th:field="*{dataMatriculaFim}"  th:placeholder="${dateFormat}"    type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-primary btn-lg">Salvar Alterações</button>
+                            </div>
+
+                        </form>
+
+                        <br/>
+
+                        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery-1.11.1.js}"></script>
+<script type="text/javascript" th:src="@{/assets/jquery/jquery.validate.js}"></script>
+<script type="text/javascript" th:src="@{/assets/script/validation.js}"></script>
+<!--<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>-->
+<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/dataTables.bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+
+</body>
+
+</html>

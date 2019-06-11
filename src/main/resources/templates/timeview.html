@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link th:replace="fragments/index::fragments-image "/>
+    <title th:replace="fragments/index::fragments-title"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/plugins/light-gallery/css/lightgallery.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+</head>
+
+<body>
+
+<div th:replace="fragments/index::navbar"/>
+
+<div class="main-wrapper">
+
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <a th:href="@{/imel/inscricao/pesquisar}" class="btn btn-primary rounded pull-right" data-toggle="modal"><i class="fa  fa-times"></i> </a>
+
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h4 class="page-title">Inscrição</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-7 col-md-offset-2">
+
+             <form id="formulario" name="formulario" th:action="@{/imel/inscricao/editar}" th:object="${estudante}" enctype="multipart/form-data" method="post">
+
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="m-b-20">
+                    <div class=" text-center">
+                        <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img th:src="@{${'/assets/imagens/fotoPerfil/' +estudante.fotoAluno}}" name="aboutme" width="140" height="140" class="ounded mx-auto d-block img-circle"></a>
+
+                    </div>
+                </div>
+
+
+                <fieldset disabled>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nome Completo do Candidato</label>
+                                <input class="form-control"  th:field="*{nome}" placeholder="Disabled input" type="text" >
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label>Filiação Mãe</label>
+                                <input class="form-control" th:field="*{nomeMae}"  placeholder="Disabled input" type="text" >
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label>Número do Bilhete</label>
+                                <input class="form-control"  th:field="*{bilhete}" placeholder="Disabled input" type="text" >
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Município</label>
+                                <input class="form-control"  th:field="*{municipio.municipio}" placeholder="Disabled input" type="text" >
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label>Bairro</label>
+                                <input class="form-control" th:field="*{bairro}" placeholder="Disabled input" type="text" >
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Rua</label>
+                                <input class="form-control"  th:field="*{rua}" placeholder="Disabled input" type="text" >
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label> Residência</label>
+                                <input class="form-control" th:field="*{residencia}"  placeholder="Disabled input" type="text" >
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Curso</label>
+                                <input class="form-control" th:field="*{curso.nome}"  placeholder="Disabled input" type="text" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                    <div class="form-group ">
+                        <label>Data de Nascimento</label>
+                            <input name="data" id="data" class="form-control" th:field="*{data}"  th:placeholder="${dateFormat}"   >
+                    </div>
+                        </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                             <label>Sexo</label>
+                             <input name="estadoSexo" id="estadoSexo" class="form-control" th:field="*{estadoSexo.sexo}"  >
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label> Nome da Instituição Onde Estudou</label>
+                        <input class="form-control" id="instituicao" name="instituicao" roleId="instituicao" th:value="${estudante.instituicao}" placeholder="Digite o nome da instituição" type="text" >
+                    </div>
+
+                </fieldset>
+
+                <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Informações do Certificado e Bilhete</h1>
+
+                <div class="row text-center text-lg-left">
+
+                <div id="lightgallery" class="row">
+
+                <div class="m-b-20">
+                    <a th:href="@{${'/assets/imagens/fotoEstudante/' +estudante.certificadoOrininalFoto}}">
+                        <img class="img-thumbnail" th:src="@{${'/assets/imagens/fotoEstudante/' +estudante.certificadoOrininalFoto}}" alt="">
+                    </a>
+                </div>
+                <div class="m-b-20">
+                    <a th:href="@{${'/assets/imagens/fotoEstudante/' +estudante.fotoBi}}">
+                        <img class="img-thumbnail" th:src="@{${'/assets/imagens/fotoEstudante/' +estudante.fotoBi}}" alt="">
+                    </a>
+                </div>
+                </div>
+            </div>
+
+                <div class="text-center">
+                    <a href="#" title="Delete" data-toggle="modal" th:onclick="|apagar(${estudante.id})|" class=" btn btn-primary btn-lg "  data-target="#delete_asset"><i></i> Eliminar</a></li>
+                </div>
+
+            </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete_asset" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Inscrição</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{/imel/inscricao/eliminar}" th:method="post">
+                    <div class="modal-body">
+                        Tem certeza de que deseja eliminar esta inscrição?
+                    </div>
+                    <div class="modal-body"> <b>Nota:</b>
+                        <span > Esta operação ira remover os dados permanentemente do sistema.</span>
+                        <br>
+                    </div>
+                    <input type="hidden" name="id" id="identifacador"/>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/assets/js/ButtonCancel.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+<script type="text/javascript" th:src="@{/assets/plugins/light-gallery/js/lightgallery-all.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+</body>
+
+</html>

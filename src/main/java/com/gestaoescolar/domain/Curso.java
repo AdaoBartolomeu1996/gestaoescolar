@@ -27,10 +27,10 @@ public class Curso {
     @JoinColumn(name = "departamento_id", referencedColumnName = "id")
     private Departamento departamento;
 
-    @OneToOne(mappedBy = "curso",cascade = CascadeType.ALL)
-    private CordenadorCurso cordenadorCurso;
+    @OneToOne(mappedBy = "curso",orphanRemoval=true)
+    private CoordenadorCurso coordenadorCurso;
 
-    @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "curso",orphanRemoval=true ) //cascade = CascadeType.ALL
     private List<Turma> turmas = new ArrayList<>();
 
     @ManyToMany
@@ -38,7 +38,7 @@ public class Curso {
             inverseJoinColumns =@JoinColumn(name = "disciplina_id", referencedColumnName = "id"))
     private List<Disciplina> disciplinas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "curso",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "curso",orphanRemoval=true )
     private List<Estudante> estudante = new ArrayList<>();
 
     public  void addDisciplina(Disciplina disciplina){
